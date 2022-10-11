@@ -1,12 +1,13 @@
 #!/user/bin/env python3
 
 import socket
-import string
 
 if __name__ == "__main__":
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(("0.0.0.0", 8888))   #port 80 iba so spravcou roota, ak by neslo tak port napr 8888
     sock.listen(1) 
+
+    sprava = Sprava("server")
 
     while True :
         (clientSock, clientAddr) = sock.accept()
@@ -18,11 +19,14 @@ if __name__ == "__main__":
                 break  #vyskocit z nekonecnej slucky, klient zavres spojenie
             
             try:
-                stringSprava = data.decode()
+                zoznam = sprava.parsuj(data)
+                if zoznam[1] == "LOGIN":
+                    print("Prihlasil sa klient" + zoznam[0])
+                    continue
+                elif zoznam[1] == "SEND":
+                    print("Sprava od: {}: {}".format(zoznam[0], zoznam[2]))
             except:
-                stringSprava = ""
-
-            print("Sprava od: {}:{} - {}".format(clientAddr[0], clientAddr[1], stringSprava))
+                continue
 
         clientSock.close()
     
