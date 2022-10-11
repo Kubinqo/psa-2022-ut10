@@ -2,6 +2,21 @@
 
 import socket
 
+class Sprava:
+    def __init__(self, nick):
+        self._nick = nick
+        
+    def vytvor(self, operacia, text):
+        return "{}|{}|{}".format(
+            self._nick,
+            operacia,
+            text
+        ).encode()
+        
+    def parsuj(self, data):
+        stringData = data.decode()
+        return stringData.split("|")
+
 if __name__ == "__main__":
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(("0.0.0.0", 8888))   #port 80 iba so spravcou roota, ak by neslo tak port napr 8888
