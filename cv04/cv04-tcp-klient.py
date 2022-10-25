@@ -26,6 +26,5 @@ if __name__ == "__main__":
     while True:
         text = input("Zadajte spravu: ")
         sock.send(sprava.vytvor("SEND", text))
-
-    sock.close()
     
+    sock.close()
