@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rozhrania routera</title>
+    </head>
+    <body>
+        <form method="post">
+            <label>Nazov loopbacku:</label>
+            <input type="text"name="nazov" />
+            <input type="submit" />
+        </form>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nazov</th>
+            </tr>
+            {% for rozhranie in rozhrania %}
+                <tr>
+                    <td>{{ rozhranie["id"] }}</td>
+                    <td>{{ rozhranie["name"] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
